@@ -10,6 +10,14 @@ export default class Deck {                //anything that deals with a pile of 
         return this.cards.length
     }
 
+    pop() {
+        return this.cards.shift()   //removes top element of array and returns it to us
+    }
+
+    push(card) {                    //put card at end of array
+        this.cards.push(card)
+    }
+
     shuffle() {
        for (let i = this.numberOfCards -1; i > 0; i--) {      //iterating through the array from back to front
         const newIndex = Math.floor(Math.random() * (i + 1))        //gives a random placement somewhere else within the deck
@@ -24,6 +32,19 @@ class Card {
     constructor(suit, rank) {
         this.suit = suit
         this.rank = rank
+    }
+
+    get color() {
+        return this.suit === '♠' || this.suit === '♣' ? 'black' : 'red'   //turnery operator - if the card is a spade or a club,
+                                                                          //the color of the card is black, otherwise it should be red
+    }
+
+    getHTML() {                     //this pulls the code from the div in the index.html file
+        const cardDiv = document.createElement("div")
+        cardDiv.innerText = this.suit               
+        cardDiv.classList.add("card", this.color)
+        cardDiv.dataset.rank = `${this.rank} ${this.suit}`
+        return cardDiv
     }
 }
 

@@ -3,6 +3,7 @@
 }
 
 body {
+    background-color: bisque;
     margin: 0;
     display: grid;
     grid-template-columns: repeat(2, 4rem); /*grid-template column/row build the spacing template*/
@@ -42,6 +43,7 @@ body {
 }
 
 .card {
+    background-color: white;
     position: relative;
     height: 100%;
     width: 100%;
@@ -58,7 +60,7 @@ body {
 }
 
 .card.black {
-    color: black
+    color: black;
 }
 
 .card::before,

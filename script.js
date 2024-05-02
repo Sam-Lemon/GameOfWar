@@ -1,17 +1,114 @@
 import Deck from './deck.js'
 
-const deck = new Deck()
-deck.shuffle()
-console.log(deck.cards)
+const CARD_VALUE_MAP = {
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "7": 7,
+    "8": 8,
+    "9": 9,
+    "10": 10,
+    "J": 11,
+    "Q": 12,
+    "K": 13,
+    "A": 14,
 
 
+}
 
+const computerCardSlot = document.querySelector(".computer-card-slot")
+const playerCardSlot = document.querySelector(".player-card-slot")
+const computerDeckElement = document.querySelector(".computer-deck")
+const playerDeckElement = document.querySelector('.player-deck')
+const text = document.querySelector('.text')
 
+let playerDeck, computerDeck, inRound, stop
 
+document.addEventListener('click', () => {
+    if (stop) {
+        startGame()
+        return
+    }
+    if (inRound) {
+        cleanBeforeRound()
+    } else {
+        flipCards()
+    }
+})
 
+startGame()                 //starts game
+function startGame() {
+    const deck = new Deck()     //creates new deck
+    deck.shuffle()              //shuffles that deck
 
+    const deckMidpoint = Math.ceil(deck.numberOfCards / 2)
+    playerDeck = new Deck(deck.cards.slice(0, deckMidpoint))        //gives player first 26 cards of the deck, index 0 to midpoint
+    computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.numberOfCards))     //gives computer last 26 cards of the deck, midpoint to end
+    inRound = false
+    stop = false
 
+    cleanBeforeRound()
 
+}
+
+function cleanBeforeRound() {       //cleans up before new round
+    inRound = false
+    computerCardSlot.innerHTML = ''
+    playerCardSlot.innerHTML = ''
+    text.innerText = ''
+
+    updateDeckCount()
+}
+
+function flipCards() {
+    inRound = true
+
+    const playerCard = playerDeck.pop()     //pulls the card out of the player deck and plays it
+    const computerCard = computerDeck.pop()
+
+    playerCardSlot.appendChild(playerCard.getHTML())
+    computerCardSlot.appendChild(computerCard.getHTML())
+
+    updateDeckCount()
+
+    if (isRoundWinner(playerCard, computerCard)) {      //if Player wins, both player and computer card go into their hand
+        text.innerText = 'Win'
+        playerDeck.push(playerCard)
+        playerDeck.push(computerCard)
+    } else if (isRoundWinner(computerCard, playerCard)) {   //if Computer wins, both player and computer card go into their hand
+        text.innerText = 'Lose'
+        computerDeck.push(playerCard)
+        computerDeck.push(computerCard)
+    } else {
+        text.innerText = 'Tie'      //if tie, each player/computer gets their card back
+        playerDeck.push(playerCard)
+        computerDeck.push(computerCard)
+    }
+
+    if (isGameOver(playerDeck)) {   
+        text.innerText = 'You lose'
+        stop = true
+    } else if (isGameOver(computerDeck)) {
+        text.innerText = 'Winner winner chicken dinner!!'
+        stop = true
+
+    }
+}
+
+function updateDeckCount() {
+    computerDeckElement.innerText = computerDeck.numberOfCards
+    playerDeckElement.innerText = playerDeck.numberOfCards
+}
+
+function isRoundWinner(cardOne, cardTwo) {
+    return CARD_VALUE_MAP [cardOne.value] > CARD_VALUE_MAP[cardTwo.value]
+}
+
+function isGameOver(deck) {
+    return deck.numberOfCards === 0
+}
 
 
 
