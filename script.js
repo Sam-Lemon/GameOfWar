@@ -1,6 +1,6 @@
-import Deck from './deck.js'
+import Deck/*, { Card }*/ from './deck.js'    //imports deck and card info from deck.js file
 
-const CARD_VALUE_MAP = {
+const cardValue = {
     "2": 2,
     "3": 3,
     "4": 4,
@@ -14,25 +14,27 @@ const CARD_VALUE_MAP = {
     "Q": 12,
     "K": 13,
     "A": 14,
-
-
 }
 
-const computerCardSlot = document.querySelector(".computer-card-slot")
-const playerCardSlot = document.querySelector(".player-card-slot")
+const computerCardPile = document.querySelector(".computer-card-pile")
+const playerCardPile = document.querySelector(".player-card-pile")
 const computerDeckElement = document.querySelector(".computer-deck")
 const playerDeckElement = document.querySelector('.player-deck')
 const text = document.querySelector('.text')
+const playerScoreElement = document.querySelector('.p-score')
+const computerScoreElement = document.querySelector('.c-score')
 
-let playerDeck, computerDeck, inRound, stop
+
+let playerDeck, computerDeck,inRound, stop
 
 document.addEventListener('click', () => {
-    if (stop) {
+    if (stop) {     //stops game and starts over when player or computer is out of cards
         startGame()
         return
     }
+
     if (inRound) {
-        cleanBeforeRound()
+        resetRound()
     } else {
         flipCards()
     }
@@ -43,71 +45,85 @@ function startGame() {
     const deck = new Deck()     //creates new deck
     deck.shuffle()              //shuffles that deck
 
-    const deckMidpoint = Math.ceil(deck.numberOfCards / 2)
+    const deckMidpoint = deck.numberOfCards / 2      //splits the deck in half
     playerDeck = new Deck(deck.cards.slice(0, deckMidpoint))        //gives player first 26 cards of the deck, index 0 to midpoint
     computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.numberOfCards))     //gives computer last 26 cards of the deck, midpoint to end
+    // computerDeck = new Deck([new Card('s', 5)])     //gives computer 1 card to test functionality of gameOver
+
+    
     inRound = false
     stop = false
 
-    cleanBeforeRound()
+    resetRound()
 
 }
 
-function cleanBeforeRound() {       //cleans up before new round
-    inRound = false
-    computerCardSlot.innerHTML = ''
-    playerCardSlot.innerHTML = ''
-    text.innerText = ''
+function resetRound() {       //clears out all of our values from the previous round
+    inRound = false;
+    computerCardPile.innerHTML = '';
+    playerCardPile.innerHTML = '';
+    text.innerText = '';
 
-    updateDeckCount()
+    updateDeckCount();
 }
 
 function flipCards() {
-    inRound = true
+    inRound = true;
 
-    const playerCard = playerDeck.pop()     //pulls the card out of the player deck and plays it
-    const computerCard = computerDeck.pop()
+    const playerCard = playerDeck.topCard()     //pulls the card off of the top of the player's deck via method in deck class
+    const computerCard = computerDeck.topCard() 
 
-    playerCardSlot.appendChild(playerCard.getHTML())
-    computerCardSlot.appendChild(computerCard.getHTML())
+    playerCardPile.appendChild(playerCard.getHTML())    //renders the card
+    computerCardPile.appendChild(computerCard.getHTML())
 
-    updateDeckCount()
+    updateDeckCount();
 
     if (isRoundWinner(playerCard, computerCard)) {      //if Player wins, both player and computer card go into their hand
-        text.innerText = 'Win'
-        playerDeck.push(playerCard)
-        playerDeck.push(computerCard)
+        text.innerText = 'Player wins';
+        playerDeck.push(playerCard);
+        playerDeck.push(computerCard);
+        updatePlayerScore();
     } else if (isRoundWinner(computerCard, playerCard)) {   //if Computer wins, both player and computer card go into their hand
-        text.innerText = 'Lose'
-        computerDeck.push(playerCard)
-        computerDeck.push(computerCard)
+        text.innerText = 'Player loses';
+        computerDeck.push(playerCard);
+        computerDeck.push(computerCard);
+        updateComputerScore();
     } else {
         text.innerText = 'Tie'      //if tie, each player/computer gets their card back
-        playerDeck.push(playerCard)
-        computerDeck.push(computerCard)
+        playerDeck.push(playerCard);
+        computerDeck.push(computerCard);
     }
 
     if (isGameOver(playerDeck)) {   
-        text.innerText = 'You lose'
-        stop = true
+        text.innerText = 'You lose';
+        stop = true;
     } else if (isGameOver(computerDeck)) {
-        text.innerText = 'Winner winner chicken dinner!!'
-        stop = true
-
+        text.innerText = 'Winner winner chicken dinner!!';
+        stop = true;
     }
 }
 
 function updateDeckCount() {
-    computerDeckElement.innerText = computerDeck.numberOfCards
-    playerDeckElement.innerText = playerDeck.numberOfCards
+    computerDeckElement.innerText = computerDeck.numberOfCards;     //shows the number of cards in the computer's deck
+    playerDeckElement.innerText = playerDeck.numberOfCards;     //shows the number of cards in the player's deck
 }
 
-function isRoundWinner(cardOne, cardTwo) {
-    return CARD_VALUE_MAP [cardOne.value] > CARD_VALUE_MAP[cardTwo.value]
+function isRoundWinner(cardOne, cardTwo) {    //compares values of card
+    return cardValue[cardOne.rank] > cardValue[cardTwo.rank];
+}
+
+let playerScore = 0;
+function updatePlayerScore() {
+    playerScoreElement.innerText = '   ' + (playerScore += 1);
+}
+
+let computerScore = 0;
+function updateComputerScore() {
+    computerScoreElement.innerText = '   ' + (computerScore += 1);
 }
 
 function isGameOver(deck) {
-    return deck.numberOfCards === 0
+    return deck.numberOfCards === 0;
 }
 
 
@@ -116,66 +132,6 @@ function isGameOver(deck) {
 
 
 
-
-
-
-
-
-/********************************************************************/
-// class Card {
-//     constructor (suit, rank) {
-//         this.suit = suit;
-//         this.rank = rank;
-//     }
-
-// };
-
-// class Deck {                //THE CODE WITHIN THIS CLASS WORKS, BUT IM NOT SURE ABOUT ONCE ITS IN THE CLASS
-//     constructor (card) {
-//         this.card = card
-//     }
-
-//     createShuffledDeck() {
-//         //Fisher-Yates shuffle 
-
-//         let shuffledDeck = [];      //this is the array the created and shuffled deck will go into
-
-//         for (let suit in suits) {
-//             for (let rank in ranks) {
-//                 shuffledDeck.push(ranks[rank] + ' of ' + suits[suit])
-//             }
-//         }
-//         //Takes a rank from the ranks array and a suit from the suits array and concatenates them. This creates the deck.
-
-//         for (let i = shuffledDeck.length -1; i > 0; i--) {
-//             let j = Math.floor(Math.random() * (i + 1));
-//             [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
-//         }
-
-//         //i starts at the end of the array and iterates through in descending order. Math.floor rounds down, Math.random returns a random number.
-//         //And then the   [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]]; bit takes it all and flips it. So there's two
-//         //moments of shuffling, j being a random number, and then the switching of the order of i and j at the end.
-//     }
-
-
-// };
-
-
-// class Player {
-//     constructor () {
-        
-//     }
-
-// };
-
-// class Game {
-//     constructor() {
-
-//     }
-
-// }
-
-/*******************************************************************************************************/
 
 
 

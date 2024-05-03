@@ -3,15 +3,14 @@
 }
 
 body {
-    background-color: bisque;
-    margin: 0;
+    background-color: burlywood;
+    margin-top: 4rem;
     display: grid;
     grid-template-columns: repeat(3, 6rem); /*grid-template column/row build the spacing template*/
-    grid-template-rows: 9rem 5rem 9rem;
+    grid-template-rows: 9rem 4rem 9rem;
     gap: .5rem;
     cursor: pointer;        /*No matter where on screen pointer is, a click will advance the game*/
     justify-content: center;
-    padding-top: 1rem;
 }
 
 .score {
@@ -21,7 +20,9 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 1rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
 
 .deck {
     height: 100%;       
@@ -31,13 +32,13 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 3rem;
-    border-radius: .5rem;
+    border-radius: .25rem;
     color: white;
     user-select: none;      /*prevents user from selecting text*/
 }
 
 .computer-deck {
-    background-color: green;
+    background-color: red;
 }
 
 .player-deck {
@@ -45,10 +46,12 @@ body {
 }
 
 .text {
-    grid-column: span 3;    /*makes text span both columns*/
+    grid-column: span 3;    /*makes text span all columns*/
     display: flex;          /*centers text (next 2 lines)*/
     justify-content: center;
     align-items: center;
+    user-select: none; 
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .card {
@@ -57,11 +60,12 @@ body {
     height: 100%;
     width: 100%;
     border: 2px solid black;
-    border-radius: .5rem;
+    border-radius: .25rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 4rem;
+    user-select: none; 
 }
 
 .card.red {
@@ -74,9 +78,9 @@ body {
 
 .card::before,
 .card::after {
-    position: absolute;
-    content: attr(data-value);
-    font-size: 1rem;
+    content: attr(data-rank);
+    position: absolute;     
+    font-size: 1.25rem;
 }
 
 .card::before {
@@ -88,6 +92,13 @@ body {
 .card::after {
     bottom: .5rem;
     right: .5rem;
-    transform: rotate(180deg);
+    transform: rotate(180deg);     
 
+}
+
+.score {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    user-select: none;  
 }

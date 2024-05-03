@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WAR!</title>
-    <script src="script.js" type="module"></script>
+    <script src="script.js" defer type="module"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -27,15 +27,23 @@
         </ul>
     </div> -->
 
-    <div class="computer-score score">computer Score</div>
+    <div class="computer-score score">
+        Computer Score
+        <div class="c-score"></div>
+    </div>
     <div class="computer-deck deck"></div>
-    <div class="computer-card-slot card-slot"></div>
+    <div class="computer-card-pile card-pile">
+    </div>
 
     <div class="text"></div>
 
-    <div class="player-score score">Player Score</div>
+    <div class="player-score score">
+        Player Score
+        <div class="p-score"></div>
+    </div>
     <div class="player-deck deck"></div>
-    <div class="player-card-slot card-slot"></div>
+    <div class="player-card-pile card-pile">
+    </div>
 
 
 

@@ -1,37 +1,43 @@
-const SUITS = ['♠', '♣', '♥', '♦'];
-const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+// I created a second file (this one) so that should I need to create another
+// deck of cards in the future I can just refer back to this file.
+
+const suits = ['♠', '♣', '♥', '♦'];
+const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
 export default class Deck {                //anything that deals with a pile of cards will be encapsulated within this class
-    constructor(cards = freshDeck()) {
-        this.cards = cards
+    constructor(cards = newDeck()) {
+        this.cards = cards;
     }
 
-    get numberOfCards() {           //getter to return the number of cards instead of having to write out this.cards.length all the time
-        return this.cards.length
+    get numberOfCards() {           //getter encapsulates this.cards.length instead of having to type it all the time
+        return this.cards.length;
     }
 
-    pop() {
-        return this.cards.shift()   //removes top element of array and returns it to us
+    topCard() {
+        return this.cards.shift();   //removes top element of array and returns it to us
     }
 
     push(card) {                    //put card at end of array
-        this.cards.push(card)
+        this.cards.push(card);
     }
 
+
+// shuffle iterates through our deck from back to front placing a card randomly in the deck somewhere earlier than the current place.
+// then it takes the old value of the card and places it in the new value, and flips the old value with the new value.
     shuffle() {
-       for (let i = this.numberOfCards -1; i > 0; i--) {      //iterating through the array from back to front
-        const newIndex = Math.floor(Math.random() * (i + 1))        //gives a random placement somewhere else within the deck
-        const oldValue = this.cards[newIndex]
-        this.cards[newIndex] = this.cards [i]
-        this.cards[i] = oldValue        //the last three lines are swapping the cards
+       for (let i = this.numberOfCards -1; i > 0; i--) {      
+        const newIndex = Math.floor(Math.random() * (i + 1));        
+        const oldValue = this.cards[newIndex];
+        this.cards[newIndex] = this.cards [i];
+        this.cards[i] = oldValue;       
         }
     }
 }
 
-class Card {
+/*export*/ class Card {
     constructor(suit, rank) {
-        this.suit = suit
-        this.rank = rank
+        this.suit = suit;
+        this.rank = rank;
     }
 
     get color() {
@@ -39,19 +45,24 @@ class Card {
                                                                           //the color of the card is black, otherwise it should be red
     }
 
-    getHTML() {                     //this pulls the code from the div in the index.html file
+    getHTML() {       //this pulls the code from the div in the index.html file
         const cardDiv = document.createElement("div")
         cardDiv.innerText = this.suit               
         cardDiv.classList.add("card", this.color)
-        cardDiv.dataset.rank = `${this.rank} ${this.suit}`
+        cardDiv.dataset.rank = `${this.suit} ${this.rank}`
         return cardDiv
     }
 }
 
-function freshDeck() {
-    return SUITS.flatMap(suit => {      //flatMap takes the 4 arrays (suits) and flattens them into one array
-        return RANKS.map (rank => {
+
+// newDeck loops through all the suits, then all the values, and combines them. 
+// flatMap takes the arrays and flattens them into one and then creates a new card.
+function newDeck() {
+    return suits.flatMap(suit => {     
+        return ranks.map (rank => {
             return new Card(suit, rank)
         })
     })
 }
+
+
