@@ -1,4 +1,4 @@
-import Deck/*, { Card }*/ from './deck.js'    //imports deck and card info from deck.js file
+import Deck, { Card } from './deck.js'    //imports deck and card info from deck.js file
 
 const cardValue = {
     "2": 2,
@@ -48,8 +48,8 @@ function startGame() {
 
     const deckMidpoint = deck.numberOfCards / 2      //splits the deck in half
     playerDeck = new Deck(deck.cards.slice(0, deckMidpoint))        //gives player first 26 cards of the deck, index 0 to midpoint
-    computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.numberOfCards))     //gives computer last 26 cards of the deck, midpoint to end
-    // computerDeck = new Deck([new Card('s', 5)])     //gives computer 1 card to test functionality of gameOver
+    // computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.numberOfCards))     //gives computer last 26 cards of the deck, midpoint to end
+    computerDeck = new Deck([new Card('s', 5)])     //gives computer 1 card to test functionality of gameOver
 
     
     inRound = false

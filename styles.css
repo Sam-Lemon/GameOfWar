@@ -13,7 +13,7 @@ body {
     background-color: green;
     border: 10px ridge brown;
     box-shadow: 5px 5px 5px 5px rgb(27, 26, 26);
-    width: 50%;
+    width: 700px;
     padding: 2rem;
     display: grid;
     grid-template-columns: repeat(3, 6rem); /*grid-template column/row build the spacing template*/
@@ -26,6 +26,7 @@ body {
 
 
 .score {
+    background-image: url(images/cork.jpg);
     background-color: rgba(78, 219, 146, 0.695);
     color: black;
     height: 65%;       
@@ -76,14 +77,14 @@ body {
 
 .text {
     background-color: rgba(78, 219, 146, 0.695);
-    color: black;
+    color: whitesmoke;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     border: 2px dotted black;
     grid-column: span 3;    /*makes text span all columns*/
     display: flex;          /*centers text (next 2 lines)*/
     justify-content: center;
     align-items: center;
     user-select: none; 
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .card {

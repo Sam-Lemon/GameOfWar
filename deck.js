@@ -35,7 +35,7 @@ export default class Deck {                //anything that deals with a pile of 
     }
 }
 
-/*export*/ class Card {
+export class Card {
     constructor(suit, rank) {
         this.suit = suit;
         this.rank = rank;
