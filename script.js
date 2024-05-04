@@ -16,6 +16,7 @@ const cardValue = {
     "A": 14,
 }
 
+// these variables are linking the js to html classes
 const computerCardPile = document.querySelector(".computer-card-pile")
 const playerCardPile = document.querySelector(".player-card-pile")
 const computerDeckElement = document.querySelector(".computer-deck")

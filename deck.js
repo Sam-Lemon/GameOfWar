@@ -28,6 +28,7 @@ export default class Deck {                //anything that deals with a pile of 
        for (let i = this.numberOfCards -1; i > 0; i--) {      
         const newIndex = Math.floor(Math.random() * (i + 1));        
         const oldValue = this.cards[newIndex];
+        // console.log("oldValue in loop", oldValue)
         this.cards[newIndex] = this.cards [i];
         this.cards[i] = oldValue;       
         }
