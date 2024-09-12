@@ -3,12 +3,45 @@
 }
 
 body {
-    background-image: url(images/wood.jpg);
     background-color: white;
     margin-top: 6rem;
+    font-family: "Reddit Sans Condensed", Arial, Helvetica, sans-serif;
+    font-weight: 400;
 }
 
-.main {
+.instructions {
+    background-color: rgb(238, 238, 238);
+    border: 6px ridge rgb(80, 40, 60);
+    max-width: 30%;
+    margin: auto;
+    padding: 15px;
+}
+
+.instructions h3 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    text-shadow: 1.5px 1.5px 3px;
+    color: darkblue;
+}
+
+.instructions h3, .instructions h4 {
+    font-family: "Reddit Sans", Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+
+}
+
+.game-board {
+    background-image: url(images/wood.jpg);
+    background-size: cover;
+    width: fit-content;
+    margin: 50px auto;
+    padding: 100px;
+}
+
+.container {
     background-image: url(images/greenGrass.jpg);
     background-color: green;
     border: 10px ridge brown;
