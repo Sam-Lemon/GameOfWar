@@ -10,8 +10,8 @@ body {
 }
 
 .instructions {
-    background-color: rgb(238, 238, 238);
-    border: 6px ridge rgb(80, 40, 60);
+    background-color: #eeeeee;
+    border: 6px ridge #50283c;
     max-width: 30%;
     margin: auto;
     padding: 15px;
@@ -34,15 +34,36 @@ body {
 }
 
 .game-board {
-    background-image: url(images/wood.jpg);
+    background-image: url(images/wooden-wall-scratched-material-background-texture-concept.jpg);
     background-size: cover;
     width: fit-content;
-    margin: 50px auto;
+    margin: 30px auto 50px;
     padding: 100px;
 }
 
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.buttons button {
+    margin-right: 10px;
+    background-color: #e2dade;
+    border: 4px solid #50283c;
+    box-shadow: 2px 2px 4px #996b82;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    font-family: "Reddit Sans Condensed", Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+}
+
 .container {
-    background-image: url(images/greenGrass.jpg);
+    background-image: url(images/green-fabric-with-black-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
     background-color: green;
     border: 10px ridge brown;
     box-shadow: 5px 5px 5px 5px rgb(27, 26, 26);
@@ -59,7 +80,6 @@ body {
 
 
 .score {
-    background-image: url(images/cork.jpg);
     background-color: rgba(78, 219, 146, 0.695);
     color: black;
     height: 65%;       
@@ -86,26 +106,21 @@ body {
     font-size: larger;
 }
 
-
 .deck {
-    height: 100%;       
-    width: 100%;
-    border: 2px solid black;
+    background-image: url(./images/10000626.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid black;
+    border-radius: .25rem;
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    border-radius: .25rem;
-    color: white;
+    align-items: end;
+    height: 100%;       
+    width: 100%;
+    color: black;
+    text-shadow: 1px 1px 2px rgb(65, 70, 75);
+    font-size: 2rem;
     user-select: none;      /*prevents user from selecting text*/
-}
-
-.computer-deck {
-    background-color: rgb(218, 67, 67);
-}
-
-.player-deck {
-    background-color: rgb(66, 66, 194);
 }
 
 .text {
